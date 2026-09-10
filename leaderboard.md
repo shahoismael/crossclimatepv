@@ -68,6 +68,31 @@ single-step result says nothing about a three-hour forecast.
 
 ---
 
+## Confound controls
+
+The gap a submission is scored against is not an artifact of how the archives
+differ. Six controls test each candidate explanation; five are excluded and one
+is quantified.
+
+| Control | Gap | Verdict |
+|---|---|---|
+| Baseline, 15 min | 0.109 | reference |
+| A. Matched resolution, all at 30 min | 0.200 | excluded — gap doubles |
+| B. Matched site count, Ausgrid cut to 37 | 0.132 | excluded — does not close |
+| C. Smart persistence baseline | 13–140% worse than naive | excluded — naive is harder |
+| D. Within-dataset, only site identity differs | 0.006 | excluded — 18× smaller |
+| E. Capacity class within PVDAQ | 0.029 | partially attributed, ~a quarter |
+| F. Adding irradiance, identical rows, 3 archives | 0.105 → 0.355 | excluded — widens the gap |
+
+Control F is the one to read before proposing a weather-driven method. Adding
+irradiance on identical complete-case rows more than triples the cross-climate
+gap, because a power-from-irradiance mapping encodes array tilt, azimuth,
+soiling and sensor placement rather than climate. Enriching the feature set
+adds provenance along with the physics.
+
+Reproduce with `evaluation/phase19_feature_control.py`; per-site results in
+`results/phase19_feature_control_results.csv`.
+
 ## How to submit
 
 Open a pull request that adds one row to the table above and one directory

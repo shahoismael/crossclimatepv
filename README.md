@@ -17,7 +17,7 @@ Four public archives, **five Köppen climate zones**, 345 scored sites,
 > the current one.
 
 **Status:** research code accompanying a manuscript under review. The protocol
-is frozen at v1.0.0 and will not change under this major version.
+is frozen at v1.x and will not change under this major version.
 
 ---
 
@@ -63,7 +63,8 @@ attribution.
 - **Common feature set** — five features: normalized power, plus sin/cos of
   hour and sin/cos of day-of-year. Weather is deliberately excluded, because
   cross-climate transfer is not computable without a shared input width. The
-  cost of that decision is measured, not assumed — see the weather ablation.
+  cost of that decision is measured twice, not assumed: in-climate by the
+  weather ablation, and across climates by Control F.
 - **Metric** — forecast skill score against naive persistence,
   `SS = 1 − RMSE_model / RMSE_persistence`, on identical test rows.
 - **Rare events** — labelled by an inverter-clipping proxy and a
@@ -99,19 +100,19 @@ rare events. The effect is carried entirely by cloud transients, positive in
 are *better* on clipped rows, because a flat ceiling at rated output is
 trivially predictable.
 
-**The gap is not an artifact.** Climate is collinear with sampling interval,
-installation class and site count across four archives, so six controls test
-each candidate explanation directly:
+**Climate outweighs every dataset artifact tested.** Climate is collinear with
+sampling interval, installation class and site count across four archives, so
+six controls test each candidate explanation directly:
 
 | Control | Gap | Verdict |
 |---|---|---|
 | Baseline | 0.109 | — |
 | Matched resolution, all at 30 min | 0.200 | excluded — gap doubles |
-| Matched site count, Ausgrid cut to 37 | 0.132 | excluded — gap widens |
+| Matched site count, Ausgrid cut to 37 | 0.132 | excluded — gap does not close (0.085 under median pooling) |
 | Smart persistence baseline | 13–140% worse than naive | excluded — naive was the harder baseline |
 | Within-dataset, only site identity differs | 0.006 | excluded — 18× smaller |
 | Capacity class within PVDAQ | 0.029 | partially attributed, about a quarter |
-| Adding irradiance, identical rows | 0.105 -> 0.355 | excluded — enriching features widens the gap |
+| Adding irradiance, identical rows (3 archives) | 0.105 -> 0.355 | excluded — enriching features widens the gap |
 
 Five explanations excluded, one quantified. The remainder is the joint
 contribution of climate zone and the data provenance that travels with it, and
