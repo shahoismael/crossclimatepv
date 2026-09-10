@@ -1,0 +1,48 @@
+CONTROL F — feature-set control
+======================================================================
+Archives: DKASC, HKUST, PVDAQ (Ausgrid publishes no weather).
+Conditions 2 and 3 use identical complete-case rows and differ by one
+column, so no NaN reaches the model and missing-value handling cannot
+explain any difference between them. Irradiance enters at the target
+timestamp, the Phase 11 convention.
+
+common          same-climate +0.054   transferred +0.033   gap 0.021
+common_cc       same-climate +0.072   transferred -0.034   gap 0.105
+common+irr_cc   same-climate +0.058   transferred -0.297   gap 0.355
+
+scored sites per condition:
+  common          DKASC 1, HKUST 37, PVDAQ 7
+  common_cc       DKASC 1, HKUST 37, PVDAQ 6
+  common+irr_cc   DKASC 1, HKUST 37, PVDAQ 6
+
+Complete-case comparison: gap 0.105 -> 0.355
+
+VERDICT: the gap survives a physically general feature.
+Feature impoverishment is EXCLUDED as the explanation.
+Note: irradiance WIDENS the gap. The learned power-from-
+irradiance mapping is array-specific and does not transfer.
+
+-- transfer matrices, skill vs naive persistence --
+
+common:
+Target  DKASC  HKUST  PVDAQ
+Source                     
+DKASC   0.129  0.023 -0.108
+HKUST   0.062  0.057  0.018
+PVDAQ   0.025  0.071  0.028
+
+common_cc:
+Target  DKASC  HKUST  PVDAQ
+Source                     
+DKASC   0.132  0.029 -0.876
+HKUST   0.070  0.065 -0.236
+PVDAQ   0.025  0.068  0.101
+
+common+irr_cc:
+Target  DKASC  HKUST  PVDAQ
+Source                     
+DKASC   0.171 -0.081 -0.236
+HKUST   0.056  0.031 -0.227
+PVDAQ  -0.499 -0.538  0.204
+
+rows written: 1,330   elapsed: 76s

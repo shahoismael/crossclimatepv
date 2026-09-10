@@ -11,7 +11,7 @@
 
 clear; clc;
 
-baseDir = solarbench_config();   % resolves SOLARBENCH_DATA, else <repo>/data
+baseDir = crossclimatepv_config();   % resolves CROSSCLIMATEPV_DATA, else <repo>/data
 protocolDir = fullfile(baseDir, 'protocol');
 outDir = fullfile(baseDir, 'results');
 if ~exist(outDir, 'dir'); mkdir(outDir); end

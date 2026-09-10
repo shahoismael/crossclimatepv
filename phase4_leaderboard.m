@@ -7,7 +7,7 @@
 
 clear; clc;
 
-baseDir = solarbench_config();   % resolves SOLARBENCH_DATA, else <repo>/data
+baseDir = crossclimatepv_config();   % resolves CROSSCLIMATEPV_DATA, else <repo>/data
 resultsDir = fullfile(baseDir, 'results');
 outDir = fullfile(baseDir, 'leaderboard');
 if ~exist(outDir, 'dir'); mkdir(outDir); end
@@ -56,9 +56,9 @@ for d = 1:numel(datasets)
 end
 
 leaderboard = sortrows(leaderboard, {'Dataset','Mean_RMSE'});
-writetable(leaderboard, fullfile(outDir, 'SolarBench_leaderboard.csv'));
+writetable(leaderboard, fullfile(outDir, 'CrossClimatePV_leaderboard.csv'));
 
-fprintf('=== SolarBench Leaderboard (mean across sites, lower is better) ===\n\n');
+fprintf('=== CrossClimatePV Leaderboard (mean across sites, lower is better) ===\n\n');
 for d = 1:numel(datasets)
     fprintf('--- %s ---\n', datasets(d));
     sub = leaderboard(leaderboard.Dataset == datasets(d), :);
@@ -74,7 +74,7 @@ end
 %% ---- Cross-climate degradation summary ----
 % For each model, how much does its RMSE vary across the 4 climate-
 % distinct datasets? Large spread = poor cross-climate generalization,
-% directly answering the core SolarBench research question.
+% directly answering the core CrossClimatePV research question.
 fprintf('=== Cross-climate RMSE spread per model (the core novel result) ===\n\n');
 crossClimate = table();
 for m = 1:numel(models)
@@ -90,7 +90,7 @@ for m = 1:numel(models)
         'VariableNames', {'Model','Min_RMSE','Max_RMSE','RMSE_Range','RMSE_Ratio'});
     crossClimate = [crossClimate; newRow]; %#ok<AGROW>
 end
-writetable(crossClimate, fullfile(outDir, 'SolarBench_cross_climate_degradation.csv'));
+writetable(crossClimate, fullfile(outDir, 'CrossClimatePV_cross_climate_degradation.csv'));
 
 %% ---- Rare-event performance (the meta-gap this whole benchmark targets) ----
 % Literature repeatedly flags that models are evaluated only on normal
@@ -114,7 +114,7 @@ for d = 1:numel(datasets)
         rareLeaderboard = [rareLeaderboard; newRow]; %#ok<AGROW>
     end
 end
-writetable(rareLeaderboard, fullfile(outDir, 'SolarBench_rare_event_performance.csv'));
+writetable(rareLeaderboard, fullfile(outDir, 'CrossClimatePV_rare_event_performance.csv'));
 
-fprintf('\nLeaderboard written to: %s\n', fullfile(outDir, 'SolarBench_leaderboard.csv'));
-fprintf('Cross-climate degradation summary written to: %s\n', fullfile(outDir, 'SolarBench_cross_climate_degradation.csv'));
+fprintf('\nLeaderboard written to: %s\n', fullfile(outDir, 'CrossClimatePV_leaderboard.csv'));
+fprintf('Cross-climate degradation summary written to: %s\n', fullfile(outDir, 'CrossClimatePV_cross_climate_degradation.csv'));

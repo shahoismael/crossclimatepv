@@ -2,7 +2,7 @@
 """
 phase17_export_release_protocol.py
 
-Exports the small, redistributable half of the SolarBench protocol so that the
+Exports the small, redistributable half of the CrossClimatePV protocol so that the
 GitHub repository can reproduce the evaluation without shipping any source data.
 
 The four *_labeled.csv files under dataset/protocol/ are the harmonized corpus
@@ -13,7 +13,7 @@ normalization constant, and the rare-event label counts. Those are a few hundred
 rows in total, and they are what a third party needs in order to rebuild the
 identical evaluation from their own copy of the source data.
 
-Writes to solarbench/protocol/:
+Writes to crossclimatepv/protocol/:
     splits_<dataset>.csv       one row per site x split: rows, date range
     capacity_<dataset>.csv     one row per site: c_i = P99.5 of positive power
     rare_events_<dataset>.csv  one row per site x split: label counts and rate
@@ -30,7 +30,7 @@ import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 PROTOCOL_IN = HERE.parent / "protocol"
-OUT = HERE.parent.parent.parent / "solarbench" / "protocol"
+OUT = HERE.parent.parent.parent / "crossclimatepv" / "protocol"
 
 DATASETS = {
     "DKASC":   "dataset1_DKASC_15min_labeled.csv",

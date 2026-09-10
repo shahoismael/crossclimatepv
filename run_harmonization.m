@@ -1,5 +1,5 @@
 %% run_harmonization.m
-% Phase 1 driver: imports all 4 SolarBench datasets, harmonizes them to a
+% Phase 1 driver: imports all 4 CrossClimatePV datasets, harmonizes them to a
 % common schema, resamples to 15-min resolution, and writes one
 % harmonized CSV per dataset.
 %
@@ -12,7 +12,7 @@
 
 clear; clc;
 
-baseDir = solarbench_config();   % resolves SOLARBENCH_DATA, else <repo>/data
+baseDir = crossclimatepv_config();   % resolves CROSSCLIMATEPV_DATA, else <repo>/data
 outDir  = fullfile(baseDir, 'harmonized');
 if ~exist(outDir, 'dir'); mkdir(outDir); end
 

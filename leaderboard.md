@@ -1,4 +1,4 @@
-# SolarBench leaderboard
+# CrossClimatePV leaderboard
 
 Protocol version **1.0.0**. Entries produced under a different major version
 are not comparable and are listed separately.

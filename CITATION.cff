@@ -1,17 +1,22 @@
 cff-version: 1.2.0
 title: >-
-  SolarBench: Quantifying the Cross-Climate Generalization Gap in
-  Deep Learning Photovoltaic Power Forecasting Under Rare Events
+  CrossClimatePV: A Controlled Multi-Climate Benchmark Showing Climate Outweighs Every Dataset Artifact Tested in Photovoltaic Power Forecasting
 message: >-
-  If you use SolarBench, please cite both this software release and
+  If you use CrossClimatePV, please cite both this software release and
   the paper listed under preferred-citation.
 type: software
 authors:
   - given-names: Shaho
     family-names: Ismael Hassen
-    email: shahoismael@live.com
+    email: shaho.hassen@su.edu.krd
+    affiliation: Salahaddin University-Erbil
     orcid: 'https://orcid.org/0000-0002-6403-7748'
-repository-code: 'https://github.com/shahoismael/solarbench'
+  - given-names: Ahmed
+    family-names: Abdulfatah Abdlrazaq
+    email: ahmed.abdulfatah@su.edu.krd
+    affiliation: Salahaddin University-Erbil
+    orcid: 'https://orcid.org/0000-0002-3054-045X'
+repository-code: 'https://github.com/shahoismael/crossclimatepv'
 doi: 10.5281/zenodo.21918702
 identifiers:
   - type: doi
@@ -36,18 +41,19 @@ keywords:
   - transfer learning
   - reproducibility
 license: Apache-2.0
-license-url: 'https://github.com/shahoismael/solarbench/blob/main/LICENSE'
-version: 1.0.0
-date-released: '2026-08-13'
+license-url: 'https://github.com/shahoismael/crossclimatepv/blob/main/LICENSE'
+version: 1.1.0
+date-released: '2026-09-10'
 
 preferred-citation:
   type: article
   title: >-
-    SolarBench: Quantifying the Cross-Climate Generalization Gap in
-    Deep Learning Photovoltaic Power Forecasting Under Rare Events
+    CrossClimatePV: A Controlled Multi-Climate Benchmark Showing Climate Outweighs Every Dataset Artifact Tested in Photovoltaic Power Forecasting
   authors:
     - given-names: Shaho
       family-names: Ismael Hassen
+    - given-names: Ahmed
+      family-names: Abdulfatah Abdlrazaq
       email: shahoismael@live.com
       orcid: 'https://orcid.org/0000-0002-6403-7748'
   journal: Applied Energy

@@ -1,9 +1,9 @@
-# SolarBench
+# CrossClimatePV
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21918702.svg)](https://doi.org/10.5281/zenodo.21918702)
 [![License](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
 [![Data](https://img.shields.io/badge/derived%20data-CC--BY--4.0-blue.svg)](LICENSE-DATA)
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20protocol%20labels-solarbench--protocol-yellow)](https://huggingface.co/datasets/shahoismael/solarbench-protocol)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20protocol%20labels-crossclimatepv--protocol-yellow)](https://huggingface.co/datasets/shahoismael/crossclimatepv-protocol)
 
 A harmonized cross-climate benchmark for photovoltaic power forecasting.
 Four public archives, **five Köppen climate zones**, 345 scored sites,
@@ -25,7 +25,7 @@ is frozen at v1.0.0 and will not change under this major version.
 
 Most PV forecasting papers validate on one site, or on several sites from one
 provider in one climate. That design cannot detect a failure to generalize,
-because there is nothing to generalize to. SolarBench harmonizes four
+because there is nothing to generalize to. CrossClimatePV harmonizes four
 independent archives into a single schema and a single protocol so that a
 model can be trained in one climate and scored in another.
 
@@ -69,8 +69,9 @@ attribution.
 - **Rare events** — labelled by an inverter-clipping proxy and a
   cloud-transient proxy, with a 405-setting sensitivity sweep behind the
   chosen thresholds.
-- **Budgets** — 100,000 training windows for every model in every condition,
-  three seeds (42, 7, 123).
+- **Budgets** — 100,000 training examples for the sequence models and the
+  gradient-boosting learner; 150,000 rows for the MLP, whose unit is a row
+  rather than an eight-step window. Three seeds (42, 7, 123).
 
 ## What it measures
 
@@ -81,14 +82,14 @@ attribution.
 | Horizon sweep | 15 / 30 / 60 / 180 minutes |
 | Rare-event sensitivity | 405 threshold settings per dataset |
 | Weather ablation | common features vs. common + weather |
-| Confound controls | five controls isolating each candidate explanation |
+| Confound controls | six controls isolating each candidate explanation |
 
 ## Results
 
 See [leaderboard.md](leaderboard.md) for the full tables and submission rules.
 
 **Skill rises with horizon in 12 of 12 dataset-model combinations**, from
-+0.052 pooled at the shortest available horizon to +0.369 at three hours.
++0.054 pooled at the shortest available horizon to +0.369 at three hours.
 Persistence's dominance is a property of the one-step interval, not of the
 method.
 
@@ -99,7 +100,7 @@ are *better* on clipped rows, because a flat ceiling at rated output is
 trivially predictable.
 
 **The gap is not an artifact.** Climate is collinear with sampling interval,
-installation class and site count across four archives, so five controls test
+installation class and site count across four archives, so six controls test
 each candidate explanation directly:
 
 | Control | Gap | Verdict |
@@ -110,8 +111,9 @@ each candidate explanation directly:
 | Smart persistence baseline | 13–140% worse than naive | excluded — naive was the harder baseline |
 | Within-dataset, only site identity differs | 0.006 | excluded — 18× smaller |
 | Capacity class within PVDAQ | 0.029 | partially attributed, about a quarter |
+| Adding irradiance, identical rows | 0.105 -> 0.355 | excluded — enriching features widens the gap |
 
-Four explanations excluded, one quantified. The remainder is the joint
+Five explanations excluded, one quantified. The remainder is the joint
 contribution of climate zone and the data provenance that travels with it, and
 four datasets cannot separate those two. Doing so needs one installation class
 and one instrumentation standard deployed across multiple Köppen zones, which
@@ -125,7 +127,7 @@ results/      per-site results for every model, seed and experiment
 models/       baseline model definitions
 evaluation/   metrics, statistical tests, figure generation
 data/         empty — place your own copies of the source archives here,
-              or set SOLARBENCH_DATA to wherever they already are
+              or set CROSSCLIMATEPV_DATA to wherever they already are
 *.m           MATLAB pipeline, in run order (see ENVIRONMENT.md)
 ```
 
@@ -134,7 +136,7 @@ data/         empty — place your own copies of the source archives here,
 1. Obtain the four archives from their original providers (see
    [LICENSE-DATA](LICENSE-DATA)).
 2. Place them under `data/`, or anywhere you like and point
-   `SOLARBENCH_DATA` at it — no script hardcodes a path. Then run
+   `CROSSCLIMATEPV_DATA` at it — no script hardcodes a path. Then run
    `run_harmonization.m`. A correct harmonization gives 23,312,924 rows
    across 369 sites.
 3. Pin the evaluation with the files in `protocol/` — do not recompute the
@@ -142,7 +144,7 @@ data/         empty — place your own copies of the source archives here,
 4. Run the pipeline in the order given in [ENVIRONMENT.md](ENVIRONMENT.md).
 
 For row-exact reproduction, join against the protocol labels on Hugging Face —
-[`shahoismael/solarbench-protocol`](https://huggingface.co/datasets/shahoismael/solarbench-protocol).
+[`shahoismael/crossclimatepv-protocol`](https://huggingface.co/datasets/shahoismael/crossclimatepv-protocol).
 That dataset carries `split` and `is_rare_event` for all 23,312,924 rows keyed
 on `(site_id, timestamp)`, and contains no measurements. The `protocol/` files
 here are enough to rebuild the evaluation; the labels remove any ambiguity
@@ -164,11 +166,11 @@ Cite the paper. If you use the code, protocol files or results directly, cite
 the archive as well. Machine-readable metadata is in
 [CITATION.cff](CITATION.cff).
 
-> Ismael Hassen, S. *SolarBench: Quantifying the Cross-Climate Generalization
-> Gap in Deep Learning Photovoltaic Power Forecasting Under Rare Events.*
-> Manuscript under review, 2026.
+> Ismael Hassen, S. *CrossClimatePV: A Controlled Multi-Climate Benchmark
+> Showing Climate Outweighs Every Dataset Artifact Tested in Photovoltaic
+> Power Forecasting.* Manuscript under review, 2026.
 
-> Ismael Hassen, S. *SolarBench* (v1.0.0). Zenodo, 2026.
+> Ismael Hassen, S. *CrossClimatePV* (v1.0.0). Zenodo, 2026.
 > https://doi.org/10.5281/zenodo.21918702
 
 ## Licence

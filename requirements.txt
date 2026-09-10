@@ -1,4 +1,4 @@
-# SolarBench — Python environment
+# CrossClimatePV — Python environment
 #
 # Python 3.11. Used for the gradient-boosting baseline, all statistical
 # testing, the confound controls, aggregation and every figure.

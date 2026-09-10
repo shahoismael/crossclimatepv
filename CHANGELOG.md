@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to SolarBench are recorded here. Format follows
+All notable changes to CrossClimatePV are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -55,4 +55,22 @@ First public release. This is the version the paper reports.
   cross-climate transfer is not computable without a shared input width. The
   cost of that choice is measured in the weather ablation rather than assumed.
 
-[1.0.0]: https://github.com/shahoismael/solarbench/releases/tag/v1.0.0
+[1.0.0]: https://github.com/shahoismael/crossclimatepv/releases/tag/v1.0.0
+
+## [1.1.0] - 2026-09-10
+
+### Added
+- Control F (`evaluation/phase19_feature_control.py`): feature-set control. Adding
+  irradiance on identical complete-case rows widens the cross-climate gap from
+  0.105 to 0.355 rather than closing it, excluding feature impoverishment as the
+  explanation. Results in `results/phase19_feature_control_results.csv`.
+- `results/phase6_transfer_matrix_results.csv` (untuned run behind Appendix Table A.1).
+- Second author: Ahmed Abdulfatah Abdlrazaq.
+
+### Changed
+- Project renamed SolarBench -> CrossClimatePV. The name SolarBench was taken by
+  arXiv:2609.06187 (Nie et al., 2026), an unrelated image-based nowcasting benchmark.
+- `solarbench_config.m` -> `crossclimatepv_config.m`; `SOLARBENCH_DATA` still honoured
+  as a legacy environment variable.
+- README: training budgets corrected (MLP uses 150,000 rows, not 100,000 windows);
+  pooled shortest-horizon skill corrected to +0.054.

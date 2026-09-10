@@ -1,4 +1,4 @@
-SolarBench derived data — licence and attribution
+CrossClimatePV derived data — licence and attribution
 ==================================================
 
 This file covers the DERIVED data products in this repository. Source code is
@@ -20,13 +20,13 @@ derived protocol and result files produced by this project:
 Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
 
 Attribution requirement. If you use these files, cite the paper (see
-CITATION.cff) and state that the protocol definitions come from SolarBench.
+CITATION.cff) and state that the protocol definitions come from CrossClimatePV.
 
 
 2. What this licence does NOT cover
 -----------------------------------
 
-SolarBench does not redistribute any source dataset. No raw measurement, and
+CrossClimatePV does not redistribute any source dataset. No raw measurement, and
 no harmonized copy of a raw measurement, is included in this repository. The
 files above contain only derived quantities: split labels, aggregate counts,
 percentile constants and model error metrics.
