@@ -16,7 +16,7 @@ doi: 10.5281/zenodo.21918702
 identifiers:
   - type: doi
     value: 10.5281/zenodo.21918702
-    description: Zenodo archive of the v1.0.0 release
+    description: Zenodo archive of the v1.1.0 release
 abstract: >-
   A harmonized cross-climate benchmark for photovoltaic power
   forecasting. Four public archives spanning five Koppen climate
@@ -47,8 +47,8 @@ preferred-citation:
   authors:
     - given-names: Shaho
       family-names: Ismael Hassen
-      email: shahoismael@live.com
+      email: shaho.hassen@su.edu.krd
       orcid: 'https://orcid.org/0000-0002-6403-7748'
-  journal: Applied Energy
+  journal: Neural Computing and Applications
   year: 2026
   status: submitted
