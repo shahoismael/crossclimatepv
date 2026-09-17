@@ -11,11 +11,6 @@ authors:
     email: shaho.hassen@su.edu.krd
     affiliation: Salahaddin University-Erbil
     orcid: 'https://orcid.org/0000-0002-6403-7748'
-  - given-names: Ahmed
-    family-names: Abdulfatah Abdlrazaq
-    email: ahmed.abdulfatah@su.edu.krd
-    affiliation: Salahaddin University-Erbil
-    orcid: 'https://orcid.org/0000-0002-3054-045X'
 repository-code: 'https://github.com/shahoismael/crossclimatepv'
 doi: 10.5281/zenodo.21918702
 identifiers:
@@ -52,8 +47,6 @@ preferred-citation:
   authors:
     - given-names: Shaho
       family-names: Ismael Hassen
-    - given-names: Ahmed
-      family-names: Abdulfatah Abdlrazaq
       email: shahoismael@live.com
       orcid: 'https://orcid.org/0000-0002-6403-7748'
   journal: Applied Energy

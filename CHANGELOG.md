@@ -65,7 +65,6 @@ First public release. This is the version the paper reports.
   0.105 to 0.355 rather than closing it, excluding feature impoverishment as the
   explanation. Results in `results/phase19_feature_control_results.csv`.
 - `results/phase6_transfer_matrix_results.csv` (untuned run behind Appendix Table A.1).
-- Second author: Ahmed Abdulfatah Abdlrazaq.
 
 ### Changed
 - Project renamed SolarBench -> CrossClimatePV. The name SolarBench was taken by
