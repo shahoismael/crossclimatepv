@@ -13,8 +13,8 @@ confound controls, aggregation and all figures.
 | Statistics and Machine Learning Toolbox | **not** required |
 
 The Statistics and Machine Learning Toolbox is deliberately not a dependency.
-Every statistical test in the paper — Wilcoxon signed-rank, Holm–Bonferroni
-correction, matched-pairs rank-biserial effect size — runs in Python with
+Every statistical test in the paper (Wilcoxon signed-rank, Holm–Bonferroni
+correction, matched-pairs rank-biserial effect size) runs in Python with
 SciPy, so a MATLAB licence without that toolbox reproduces the full pipeline.
 
 ### Where the data lives
@@ -53,7 +53,7 @@ created under the same directory as the pipeline runs.
 MATLAB scripts, in run order:
 
 ```
-crossclimatepv_config.m          resolves the data directory (called by all)
+crossclimatepv_config.m      resolves the data directory (called by all)
 run_harmonization.m          import and harmonize the four archives
 phase2_protocol_design.m     splits, capacity constants, rare-event labels
 phase3_step1_persistence.m   naive persistence reference
@@ -77,6 +77,7 @@ phase11_gbm_and_weather.py           gradient boosting + weather ablation
 phase12_consolidate_numbers.py       FINAL_NUMBERS.md / .json
 phase13_confound_controls.py         controls A, B, C
 phase14_within_dataset_controls.py   controls D, E
+phase19_feature_control.py           control F, feature-set control
 phase6c_aggregate_transfer.py
 phase9b_aggregate_horizons.py
 phase10b_aggregate_rare_sensitivity.py
@@ -102,9 +103,10 @@ sampled set on the scored sites, not over every test row in the archive. The
 counts in `protocol/rare_events_*.csv` are over **all** rows, which is why
 they differ.
 
-Training budget is capped at 100,000 windows for every model in every
-condition, including the pooled leave-one-climate-out folds, so no model gains
-an advantage from having more data available.
+Training budget is capped at 100,000 windows for the window-based models in
+every condition, including the pooled leave-one-climate-out folds. The MLP is
+capped at 150,000 rows, because its training unit is a row rather than an
+eight-step window. This asymmetry is disclosed in the paper.
 
 ## Hardware
 
@@ -118,13 +120,13 @@ The four source archives are not redistributed. Once you have obtained them
 from their original providers and run `run_harmonization.m`, the files in
 `protocol/` pin the evaluation exactly:
 
-- `splits_<dataset>.csv` — which site went in which split, and the date
+- `splits_<dataset>.csv`: which site went in which split, and the date
   boundary of each split
-- `capacity_<dataset>.csv` — the per-site normalization constant $c_i$, the
+- `capacity_<dataset>.csv`: the per-site normalization constant `c_i`, the
   99.5th percentile of strictly positive output. Use these values; do not
   recompute them.
-- `rare_events_<dataset>.csv` — rare-event label counts per site and split
-- `protocol_summary.csv` — per-dataset totals
+- `rare_events_<dataset>.csv`: rare-event label counts per site and split
+- `protocol_summary.csv`: per-dataset totals
 
 A correct harmonization reproduces 23,312,924 rows across 369 selected sites,
 of which 345 are scored.

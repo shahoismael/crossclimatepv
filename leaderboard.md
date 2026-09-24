@@ -1,6 +1,6 @@
 # CrossClimatePV leaderboard
 
-Protocol version **1.0.0**. Entries produced under a different major version
+Protocol version **1.1.0**. Entries produced under a different major version
 are not comparable and are listed separately.
 
 The ranking metric is the **forecast skill score against naive persistence**,
@@ -24,7 +24,7 @@ column has not been evaluated on what this benchmark measures.
 
 | # | Method | Same-climate | Transferred | Gap | Params | Submitted |
 |---|---|---|---|---|---|---|
-| 1 | Gradient boosting | **+0.070** | −0.039 | **0.109** | — | baseline |
+| 1 | Gradient boosting | **+0.070** | −0.039 | **0.109** | n/a | baseline |
 | 2 | LSTM | +0.066 | −0.143 | 0.209 | tuned | baseline |
 | 3 | Transformer | +0.063 | −0.180 | 0.243 | tuned | baseline |
 | 4 | MLP | +0.055 | −0.106 | 0.162 | tuned | baseline |
@@ -77,12 +77,12 @@ is quantified.
 | Control | Gap | Verdict |
 |---|---|---|
 | Baseline, 15 min | 0.109 | reference |
-| A. Matched resolution, all at 30 min | 0.200 | excluded — gap doubles |
-| B. Matched site count, Ausgrid cut to 37 | 0.132 | excluded — does not close |
-| C. Smart persistence baseline | 13–140% worse than naive | excluded — naive is harder |
-| D. Within-dataset, only site identity differs | 0.006 | excluded — 18× smaller |
+| A. Matched resolution, all at 30 min | 0.200 | excluded: gap doubles |
+| B. Matched site count, Ausgrid cut to 37 | 0.132 | excluded: does not close |
+| C. Smart persistence baseline | 13–140% worse than naive | excluded: naive is harder |
+| D. Within-dataset, only site identity differs | 0.006 | excluded: 18× smaller |
 | E. Capacity class within PVDAQ | 0.029 | partially attributed, ~a quarter |
-| F. Adding irradiance, identical rows, 3 archives | 0.105 → 0.355 | excluded — widens the gap |
+| F. Adding irradiance, identical rows, 3 archives | 0.105 → 0.355 | excluded: widens the gap |
 
 Control F is the one to read before proposing a weather-driven method. Adding
 irradiance on identical complete-case rows more than triples the cross-climate
@@ -108,7 +108,9 @@ under `submissions/`.
   sin/cos of day-of-year. Weather channels are excluded by design, because
   cross-climate transfer needs a shared input width. If your method requires
   weather, submit to the ablation table instead and say so.
-- Training budget capped at 100,000 windows, matching the baselines.
+- Training budget capped at 100,000 windows for window-based models, matching
+  the sequence baselines. The MLP baseline uses 150,000 rows, because its
+  training unit is a row rather than an eight-step window.
 - Three seeds: 42, 7, 123. Report the mean and the standard deviation.
 
 **2. Report both columns.** Same-climate and transferred. Transferred means
@@ -116,11 +118,11 @@ every source-target pair where source ≠ target.
 
 **3. Include in `submissions/<your-method>/`:**
 
-- `results.csv` — one row per site, model, seed, source and target, with the
+- `results.csv`: one row per site, model, seed, source and target, with the
   same column names as `results/phase6_transfer_matrix_results_tuned.csv`
-- `README.md` — method description, parameter count, hardware, wall-clock
+- `README.md`: method description, parameter count, hardware, wall-clock
   training time, and a link to the code that produced the numbers
-- `environment.txt` or `requirements.txt` — exact versions
+- `environment.txt` or `requirements.txt`: exact versions
 
 **4. State any deviation explicitly.** A deviation does not disqualify a
 submission; an undisclosed one does. Entries that change the protocol are
@@ -129,7 +131,7 @@ listed in a separate table rather than removed.
 **5. Significance.** For any claim that a method beats another, report the
 Wilcoxon signed-rank test paired on site, Holm–Bonferroni corrected within
 the family of comparisons, with the matched-pairs rank-biserial effect size.
-`scripts/` contains the same test used in the paper.
+`evaluation/` contains the same test used in the paper.
 
 Submissions are verified against the frozen protocol before merge. A
 submission that cannot be reproduced from its own stated configuration is not

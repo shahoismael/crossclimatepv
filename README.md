@@ -43,8 +43,8 @@ different metering conventions, capacities spanning three orders of magnitude.
 | PVDAQ | United States | BSk, BWh, Cfa, Dfb | 8 | 7 | 15 min | 2,398,931 |
 | **Total** | | **5 distinct classes** | **369** | **345** | | **23,312,924** |
 
-Five distinct Köppen classes across four datasets — BWh, Cwa, Cfa, BSk and
-Dfb. PVDAQ spans four classes on its own, two of which overlap DKASC's and
+Five distinct Köppen classes across four datasets: BWh, Cwa, Cfa, BSk and Dfb.
+PVDAQ spans four classes on its own, two of which overlap DKASC's and
 Ausgrid's, so its distinct contribution is the continental and cold-semi-arid
 zones.
 
@@ -54,23 +54,23 @@ attribution.
 
 ## The protocol
 
-- **Splits** — chronological 70/15/15, no shuffling. PVDAQ uses a per-site
-  split because its systems were commissioned across 2007–2023; this is a
+- **Splits.** Chronological 70/15/15, no shuffling. PVDAQ uses a per-site
+  split because its systems were commissioned across 2007–2023. This is a
   disclosed asymmetry.
-- **Capacity normalization** — per site, `c_i = percentile_99.5(p_i > 0)`.
+- **Capacity normalization.** Per site, `c_i = percentile_99.5(p_i > 0)`.
   Positive by construction; sites with no positive reading are excluded rather
   than divided by zero.
-- **Common feature set** — five features: normalized power, plus sin/cos of
+- **Common feature set.** Five features: normalized power, plus sin/cos of
   hour and sin/cos of day-of-year. Weather is deliberately excluded, because
   cross-climate transfer is not computable without a shared input width. The
   cost of that decision is measured twice, not assumed: in-climate by the
   weather ablation, and across climates by Control F.
-- **Metric** — forecast skill score against naive persistence,
+- **Metric.** Forecast skill score against naive persistence,
   `SS = 1 − RMSE_model / RMSE_persistence`, on identical test rows.
-- **Rare events** — labelled by an inverter-clipping proxy and a
+- **Rare events.** Labelled by an inverter-clipping proxy and a
   cloud-transient proxy, with a 405-setting sensitivity sweep behind the
   chosen thresholds.
-- **Budgets** — 100,000 training examples for the sequence models and the
+- **Budgets.** 100,000 training examples for the sequence models and the
   gradient-boosting learner; 150,000 rows for the MLP, whose unit is a row
   rather than an eight-step window. Three seeds (42, 7, 123).
 
@@ -90,11 +90,11 @@ attribution.
 See [leaderboard.md](leaderboard.md) for the full tables and submission rules.
 
 **Skill rises with horizon in 12 of 12 dataset-model combinations**, from
-+0.054 pooled at the shortest available horizon to +0.369 at three hours.
++0.052 pooled at the shortest available horizon to +0.369 at three hours.
 Persistence's dominance is a property of the one-step interval, not of the
 method.
 
-**Rare-event degradation is universal** — 60 of 60 transfer cells are worse on
+**Rare-event degradation is universal.** 60 of 60 transfer cells are worse on
 rare events. The effect is carried entirely by cloud transients, positive in
 540 of 540 threshold settings. The clipping proxy runs the other way: models
 are *better* on clipped rows, because a flat ceiling at rated output is
@@ -106,13 +106,13 @@ six controls test each candidate explanation directly:
 
 | Control | Gap | Verdict |
 |---|---|---|
-| Baseline | 0.109 | — |
-| Matched resolution, all at 30 min | 0.200 | excluded — gap doubles |
-| Matched site count, Ausgrid cut to 37 | 0.132 | excluded — gap does not close (0.085 under median pooling) |
-| Smart persistence baseline | 13–140% worse than naive | excluded — naive was the harder baseline |
-| Within-dataset, only site identity differs | 0.006 | excluded — 18× smaller |
+| Baseline | 0.109 | reference |
+| Matched resolution, all at 30 min | 0.200 | excluded: gap doubles |
+| Matched site count, Ausgrid cut to 37 | 0.132 | excluded: gap does not close (0.085 under median pooling) |
+| Smart persistence baseline | 13–140% worse than naive | excluded: naive was the harder baseline |
+| Within-dataset, only site identity differs | 0.006 | excluded: 18× smaller |
 | Capacity class within PVDAQ | 0.029 | partially attributed, about a quarter |
-| Adding irradiance, identical rows (3 archives) | 0.105 -> 0.355 | excluded — enriching features widens the gap |
+| Adding irradiance, identical rows (3 archives) | 0.105 -> 0.355 | excluded: enriching features widens the gap |
 
 Five explanations excluded, one quantified. The remainder is the joint
 contribution of climate zone and the data provenance that travels with it, and
@@ -127,7 +127,7 @@ protocol/     frozen split definitions, capacity constants, rare-event counts
 results/      per-site results for every model, seed and experiment
 models/       baseline model definitions
 evaluation/   metrics, statistical tests, figure generation
-data/         empty — place your own copies of the source archives here,
+data/         empty. Place your own copies of the source archives here,
               or set CROSSCLIMATEPV_DATA to wherever they already are
 *.m           MATLAB pipeline, in run order (see ENVIRONMENT.md)
 ```
@@ -137,14 +137,14 @@ data/         empty — place your own copies of the source archives here,
 1. Obtain the four archives from their original providers (see
    [LICENSE-DATA](LICENSE-DATA)).
 2. Place them under `data/`, or anywhere you like and point
-   `CROSSCLIMATEPV_DATA` at it — no script hardcodes a path. Then run
+   `CROSSCLIMATEPV_DATA` at it. No script hardcodes a path. Then run
    `run_harmonization.m`. A correct harmonization gives 23,312,924 rows
    across 369 sites.
-3. Pin the evaluation with the files in `protocol/` — do not recompute the
+3. Pin the evaluation with the files in `protocol/`. Do not recompute the
    splits or the capacity constants.
 4. Run the pipeline in the order given in [ENVIRONMENT.md](ENVIRONMENT.md).
 
-For row-exact reproduction, join against the protocol labels on Hugging Face —
+For row-exact reproduction, join against the protocol labels on Hugging Face,
 [`shahoismael/crossclimatepv-protocol`](https://huggingface.co/datasets/shahoismael/crossclimatepv-protocol).
 That dataset carries `split` and `is_rare_event` for all 23,312,924 rows keyed
 on `(site_id, timestamp)`, and contains no measurements. The `protocol/` files
@@ -152,7 +152,7 @@ here are enough to rebuild the evaluation; the labels remove any ambiguity
 about which rows were scored.
 
 MATLAB R2025b with the Deep Learning Toolbox, and Python 3.11. The Statistics
-and Machine Learning Toolbox is not required — every statistical test runs in
+and Machine Learning Toolbox is not required. Every statistical test runs in
 Python.
 
 ## Submitting a method
@@ -171,7 +171,7 @@ the archive as well. Machine-readable metadata is in
 > Showing Climate Outweighs Every Dataset Artifact Tested in Photovoltaic
 > Power Forecasting.* Manuscript under review, 2026.
 
-> Ismael Hassen, S. *CrossClimatePV* (v1.0.0). Zenodo, 2026.
+> Ismael Hassen, S. *CrossClimatePV* (v1.1.0). Zenodo, 2026.
 > https://doi.org/10.5281/zenodo.21918702
 
 ## Licence
