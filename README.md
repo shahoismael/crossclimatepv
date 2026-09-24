@@ -1,6 +1,6 @@
 # CrossClimatePV
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21918702.svg)](https://doi.org/10.5281/zenodo.21918702)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21918701.svg)](https://doi.org/10.5281/zenodo.21918701)
 [![License](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
 [![Data](https://img.shields.io/badge/derived%20data-CC--BY--4.0-blue.svg)](LICENSE-DATA)
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20protocol%20labels-crossclimatepv--protocol-yellow)](https://huggingface.co/datasets/shahoismael/crossclimatepv-protocol)
@@ -172,7 +172,7 @@ the archive as well. Machine-readable metadata is in
 > Power Forecasting.* Manuscript under review, 2026.
 
 > Ismael Hassen, S. *CrossClimatePV* (v1.1.0). Zenodo, 2026.
-> https://doi.org/10.5281/zenodo.21918702
+> https://doi.org/10.5281/zenodo.21918701
 
 ## Licence
 
